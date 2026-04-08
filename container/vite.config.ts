@@ -11,6 +11,7 @@ export default defineConfig({
       name: "container",
       filename: "remoteEntry.js",
       remotes: {
+        aiViewer: "http://localhost:5002/assets/remoteEntry.js",
         uploader: "http://localhost:5001/assets/remoteEntry.js", // Vite host는 assets 경로를 사용
       },
       shared: ["react", "react-dom"],

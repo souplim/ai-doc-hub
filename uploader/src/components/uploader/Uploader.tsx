@@ -6,6 +6,10 @@ import {
   mergeSelectedFiles,
   splitFilesByValidation,
 } from "../../utils/uploader/fileValidation";
+import {
+  dispatchUploaderFileUploaded,
+  readFileContent,
+} from "../../utils/uploader/fileContent";
 import { isDirectoryItem } from "../../utils/uploader/drag";
 import "./Uploader.css";
 
@@ -21,11 +25,9 @@ function Uploader() {
     }
 
     setSelectedFiles((currentFiles) => mergeSelectedFiles(currentFiles, files));
-
-    const fileEvent = new CustomEvent("uploader:file-uploaded", {
-      detail: { fileName: files[0]?.name, timestamp: new Date() },
-    });
-    window.dispatchEvent(fileEvent);
+    void Promise.all(files.map(readFileContent)).then(
+      dispatchUploaderFileUploaded,
+    );
   };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +35,9 @@ function Uploader() {
     const { validFiles, invalidFiles } = splitFilesByValidation(files);
 
     if (invalidFiles.length > 0) {
-      setToastMessage("JPG, PNG, WEBP, GIF, PDF 파일만 업로드할 수 있어요.");
+      setToastMessage(
+        "JPG, PNG, WEBP, GIF, PDF, TXT, DOC, DOCX 파일만 업로드할 수 있어요.",
+      );
     }
 
     updateSelectedFiles(validFiles);
@@ -83,8 +87,7 @@ function Uploader() {
   return (
     <section className="uploader-card">
       <div className="uploader-header">
-        <span className="uploader-badge">Remote uploader</span>
-        <h2>파일 업로더</h2>
+        <span className="uploader-badge">File uploader</span>
         <p>
           Module Federation으로 노출되는 업로더 컴포넌트입니다. 파일을 선택하면
           현재 세션 기준으로 목록을 바로 확인할 수 있습니다.

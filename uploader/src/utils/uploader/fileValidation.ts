@@ -5,6 +5,9 @@ const ALLOWED_FILE_EXTENSIONS = new Set([
   ".webp",
   ".gif",
   ".pdf",
+  ".txt",
+  ".doc",
+  ".docx",
 ]);
 
 const ALLOWED_MIME_TYPES = new Set([

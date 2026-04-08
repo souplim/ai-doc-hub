@@ -5,8 +5,18 @@ declare module "uploader/Uploader" {
   export default Uploader;
 }
 
+declare module "aiViewer/ChatWindow" {
+  import type { ComponentType } from "react";
+
+  const ChatWindow: ComponentType;
+  export default ChatWindow;
+}
+
 interface UploaderFileUploadedDetail {
-  fileName?: string;
+  files: Array<{
+    fileName: string;
+    content?: string;
+  }>;
   timestamp: Date;
 }
 
