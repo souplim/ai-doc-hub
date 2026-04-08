@@ -12,7 +12,7 @@ export default defineConfig(() => {
         name: "uploader",
         filename: "remoteEntry.js", // 배포 시 생성될 진입점 파일명
         exposes: {
-          "./Uploader": "./src/components/Uploader.tsx", // 내보낼 컴포넌트 경로
+          "./Uploader": "./src/components/uploader/Uploader.tsx", // 내보낼 컴포넌트 경로
         },
         shared: ["react", "react-dom"], // 공통 라이브러리 공유
       }),

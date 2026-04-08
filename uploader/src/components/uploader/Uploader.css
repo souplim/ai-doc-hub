@@ -51,6 +51,12 @@
   transform: translateY(-1px);
 }
 
+.uploader-dropzone.is-dragging {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--social-bg) 75%, var(--accent-bg));
+  transform: translateY(-1px);
+}
+
 .uploader-dropzone-title {
   color: var(--text-h);
   font-size: 1.05rem;
