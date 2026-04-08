@@ -1,0 +1,49 @@
+.chat-status-notice {
+  display: grid;
+  gap: 6px;
+  align-self: stretch;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.chat-status-notice strong,
+.chat-status-notice p {
+  margin: 0;
+}
+
+.chat-status-notice.is-warning {
+  background: linear-gradient(180deg, rgba(255, 243, 224, 0.95), rgba(255, 248, 238, 0.98));
+  border-color: rgba(195, 129, 27, 0.22);
+  color: #7a5512;
+}
+
+.chat-status-notice.is-error {
+  background: linear-gradient(180deg, rgba(255, 235, 235, 0.95), rgba(255, 244, 244, 0.98));
+  border-color: rgba(184, 52, 52, 0.22);
+  color: #8b2323;
+}
+
+.chat-status-notice.is-info {
+  background: color-mix(in srgb, var(--bg) 84%, var(--social-bg));
+  color: var(--text);
+}
+
+.chat-status-notice.is-delayed {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: chat-status-delayed-enter 0.24s ease-out 5s forwards;
+}
+
+@keyframes chat-status-delayed-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

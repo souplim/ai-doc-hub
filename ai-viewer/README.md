@@ -63,6 +63,17 @@ npm run lint
 - `@ai-sdk/react`: React용 `useChat` 훅
 - `ai`: `DefaultChatTransport` 등 AI SDK 코어 기능
 
+## Rolldown 참고
+
+`ai-viewer`는 현재 로컬 macOS arm64 환경에서 `vite build` 안정성을 위해
+`@rolldown/binding-darwin-arm64`를 devDependency로 명시하고 있습니다.
+
+이 패키지는 애플리케이션 기능 자체를 위한 의존성이 아니라, Vite가 내부 번들러인
+rolldown을 실행할 때 필요한 네이티브 바인딩입니다.
+
+이론상 optional dependency로 자동 설치될 수 있지만, 실제로는 재설치 후 누락되어
+빌드가 깨진 적이 있어서 현재는 명시적으로 유지합니다.
+
 채팅 UI는 백엔드 `/api/chat` 엔드포인트를 호출해 스트리밍 응답을 받도록 구성되어 있습니다.
 
 ## 왜 `dev`와 `dev:remote`가 다른가

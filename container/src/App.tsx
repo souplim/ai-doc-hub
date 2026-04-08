@@ -7,10 +7,22 @@ function App() {
   const [fileContents, setFileContents] = React.useState<
     Array<{ fileName: string; content?: string }>
   >([]);
+  const documentContext = React.useMemo(() => {
+    const readableFiles = fileContents.filter((file) => file.content?.trim());
+
+    if (readableFiles.length === 0) {
+      return undefined;
+    }
+
+    return readableFiles
+      .map(
+        (file) => `[파일명: ${file.fileName}]\n${file.content?.trim() ?? ""}`,
+      )
+      .join("\n\n---\n\n");
+  }, [fileContents]);
 
   useEffect(() => {
     const handleFileEvent = (e: WindowEventMap["uploader:file-uploaded"]) => {
-      console.log("파일 업로드 감지됨:", e.detail.files);
       setFileContents(e.detail.files);
       // 여기서 상태를 변경하거나 다른 Micro App에 신호를 보냄
     };
@@ -30,7 +42,7 @@ function App() {
           </article>
           <article className="remote-panel">
             <h2>AI Viewer</h2>
-            <ChatWindow />
+            <ChatWindow documentContext={documentContext} />
           </article>
         </section>
       </Suspense>

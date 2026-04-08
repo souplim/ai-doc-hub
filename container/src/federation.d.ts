@@ -8,7 +8,9 @@ declare module "uploader/Uploader" {
 declare module "aiViewer/ChatWindow" {
   import type { ComponentType } from "react";
 
-  const ChatWindow: ComponentType;
+  const ChatWindow: ComponentType<{
+    documentContext?: string;
+  }>;
   export default ChatWindow;
 }
 
