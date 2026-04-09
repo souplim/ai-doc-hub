@@ -1,5 +1,5 @@
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { cn } from "@/lib/utils";
+import { cn } from "@ai-doc-hub/ui/utils";
 import "./ChatStatusNotice.css";
 
 type ChatStatusNoticeProps = {

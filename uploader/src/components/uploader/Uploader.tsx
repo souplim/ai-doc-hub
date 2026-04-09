@@ -1,7 +1,7 @@
 import { useId, useState, type ChangeEvent, type DragEvent } from "react";
+import { Button } from "@ai-doc-hub/ui/button";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import {
   ACCEPT_ATTRIBUTE,

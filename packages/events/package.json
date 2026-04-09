@@ -1,0 +1,9 @@
+{
+  "name": "@ai-doc-hub/events",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./uploader": "./src/uploader.ts"
+  }
+}

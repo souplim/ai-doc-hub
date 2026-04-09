@@ -1,7 +1,7 @@
-export type UploadedFileContent = {
-  fileName: string;
-  content?: string;
-};
+import {
+  dispatchUploaderFileUploaded,
+  type UploadedFileContent,
+} from "@ai-doc-hub/events/uploader";
 
 const shouldReadFileAsText = (file: File) =>
   file.type.startsWith("text/") || file.name.toLowerCase().endsWith(".txt");
@@ -26,16 +26,4 @@ export const readFileContent = (file: File) =>
     reader.readAsText(file);
   });
 
-// 파일 업로드 이벤트를 컨테이너 앱에 전달하는 함수
-export const dispatchUploaderFileUploaded = (
-  fileContents: UploadedFileContent[],
-) => {
-  const fileEvent = new CustomEvent("uploader:file-uploaded", {
-    detail: {
-      files: fileContents,
-      timestamp: new Date(),
-    },
-  });
-
-  window.dispatchEvent(fileEvent);
-};
+export { dispatchUploaderFileUploaded };

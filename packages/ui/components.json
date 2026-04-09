@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/index.css",
+    "css": "src/theme.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
@@ -13,11 +13,11 @@
   "iconLibrary": "lucide",
   "rtl": false,
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
+    "components": "@ai-doc-hub/ui/components",
+    "utils": "@ai-doc-hub/ui/lib/utils",
+    "ui": "@ai-doc-hub/ui/components/ui",
+    "lib": "@ai-doc-hub/ui/lib",
+    "hooks": "@ai-doc-hub/ui/hooks"
   },
   "menuColor": "default",
   "menuAccent": "subtle",

@@ -4,6 +4,86 @@
   box-sizing: border-box;
 }
 
+.container-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.container-toolbar-copy {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+}
+
+.container-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 84%, var(--social-bg));
+  box-shadow: var(--shadow);
+}
+
+.theme-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.theme-toggle-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.theme-toggle-button:hover {
+  background: color-mix(in srgb, var(--social-bg) 72%, var(--accent-bg));
+  color: var(--text-h);
+}
+
+.theme-toggle-button.is-active {
+  background: var(--text-h);
+  color: var(--bg);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .remote-grid {
   display: grid;
   gap: 24px;
@@ -18,6 +98,17 @@
 .remote-panel h1 {
   margin: 0;
   font-size: clamp(1.75rem, 3vw, 2.4rem);
+}
+
+@media (max-width: 900px) {
+  .container-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .theme-toggle {
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 1100px) {

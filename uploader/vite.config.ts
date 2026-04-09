@@ -6,6 +6,7 @@ import federation from "@originjs/vite-plugin-federation";
 
 export default defineConfig(() => {
   const enableRemoteDebug = process.env.REMOTE_FEDERATION_DEBUG === "1";
+  const enableRemoteWatch = process.env.REMOTE_FEDERATION_WATCH === "1";
 
   return {
     plugins: [
@@ -21,6 +22,7 @@ export default defineConfig(() => {
       }),
     ],
     resolve: {
+      dedupe: ["react", "react-dom"],
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
@@ -30,6 +32,12 @@ export default defineConfig(() => {
       minify: false,
       cssCodeSplit: false,
       sourcemap: enableRemoteDebug,
+      watch: enableRemoteWatch
+        ? {
+            // Avoid self-triggered rebuilds when build --watch writes to dist/.
+            exclude: ["dist/**"],
+          }
+        : null,
     },
 
     server: {

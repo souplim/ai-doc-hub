@@ -13,15 +13,3 @@ declare module "aiViewer/ChatWindow" {
   }>;
   export default ChatWindow;
 }
-
-interface UploaderFileUploadedDetail {
-  files: Array<{
-    fileName: string;
-    content?: string;
-  }>;
-  timestamp: Date;
-}
-
-interface WindowEventMap {
-  "uploader:file-uploaded": CustomEvent<UploaderFileUploadedDetail>;
-}

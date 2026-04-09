@@ -1,10 +1,13 @@
+import path from "path";
 import { defineConfig } from "vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import babel from "@rolldown/plugin-babel";
 import federation from "@originjs/vite-plugin-federation";
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     react(),
     babel({ presets: [reactCompilerPreset()] }),
     federation({
@@ -17,4 +20,7 @@ export default defineConfig({
       shared: ["react", "react-dom"],
     }),
   ],
+  resolve: {
+    dedupe: ["react", "react-dom"],
+  },
 });

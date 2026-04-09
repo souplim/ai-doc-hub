@@ -5,6 +5,7 @@ const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 const buildWatchEnv = {
   ...process.env,
   REMOTE_FEDERATION_DEBUG: "1",
+  REMOTE_FEDERATION_WATCH: "1",
 };
 
 const children = [
