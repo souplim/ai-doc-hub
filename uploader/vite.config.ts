@@ -1,5 +1,7 @@
+import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import federation from "@originjs/vite-plugin-federation";
 
 export default defineConfig(() => {
@@ -7,6 +9,7 @@ export default defineConfig(() => {
 
   return {
     plugins: [
+      tailwindcss(),
       react(),
       federation({
         name: "uploader",
@@ -17,6 +20,11 @@ export default defineConfig(() => {
         shared: ["react", "react-dom"], // 공통 라이브러리 공유
       }),
     ],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
     build: {
       target: "esnext",
       minify: false,

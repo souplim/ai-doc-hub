@@ -13,7 +13,6 @@ const MODEL_ID = process.env.GEMINI_MODEL ?? "gemini-2.0-flash";
 app.post("/api/chat", async (req, res) => {
   try {
     const { messages, documentContext } = req.body;
-    console.log("documentContext in server:", documentContext);
 
     // Google Gemini 모델을 사용하여 스트리밍 응답 생성
     // streamText 함수는 모델에서 생성된 텍스트를 스트리밍 방식으로 반환

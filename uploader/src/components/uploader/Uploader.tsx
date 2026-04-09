@@ -1,5 +1,8 @@
 import { useId, useState, type ChangeEvent, type DragEvent } from "react";
-import Toast from "../toast/Toast";
+import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/sonner";
 import {
   ACCEPT_ATTRIBUTE,
   formatBytes,
@@ -16,7 +19,6 @@ import "./Uploader.css";
 function Uploader() {
   const inputId = useId();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const updateSelectedFiles = (files: File[]) => {
@@ -35,9 +37,7 @@ function Uploader() {
     const { validFiles, invalidFiles } = splitFilesByValidation(files);
 
     if (invalidFiles.length > 0) {
-      setToastMessage(
-        "JPG, PNG, WEBP, GIF, PDF, TXT, DOC, DOCX 파일만 업로드할 수 있어요.",
-      );
+      toast("JPG, PNG, WEBP, GIF, PDF, TXT, DOC, DOCX 파일만 업로드할 수 있어요.");
     }
 
     updateSelectedFiles(validFiles);
@@ -69,16 +69,16 @@ function Uploader() {
     const hasNonFileItem = items.some((item) => item.kind !== "file");
 
     if (validFiles.length === 0 && (hasDirectoryItem || hasNonFileItem)) {
-      setToastMessage("폴더는 업로드할 수 없어요. 파일만 추가해 주세요.");
+      toast("폴더는 업로드할 수 없어요. 파일만 추가해 주세요.");
       return;
     }
 
     if (hasDirectoryItem) {
-      setToastMessage("폴더는 제외하고 파일만 추가했어요.");
+      toast("폴더는 제외하고 파일만 추가했어요.");
     } else if (invalidFiles.length > 0) {
-      setToastMessage("허용되지 않은 형식은 제외하고 파일만 추가했어요.");
+      toast("허용되지 않은 형식은 제외하고 파일만 추가했어요.");
     } else if (hasNonFileItem) {
-      setToastMessage("파일이 아닌 항목은 제외하고 파일만 추가했어요.");
+      toast("파일이 아닌 항목은 제외하고 파일만 추가했어요.");
     }
 
     updateSelectedFiles(validFiles);
@@ -87,7 +87,7 @@ function Uploader() {
   return (
     <section className="uploader-card">
       <div className="uploader-header">
-        <span className="uploader-badge">File uploader</span>
+        <Badge variant="secondary">File uploader</Badge>
         <p>
           Module Federation으로 노출되는 업로더 컴포넌트입니다. 파일을 선택하면
           현재 세션 기준으로 목록을 바로 확인할 수 있습니다.
@@ -120,14 +120,15 @@ function Uploader() {
 
       <div className="uploader-summary">
         <strong>{selectedFiles.length}개 파일 선택됨</strong>
-        <button
-          className="uploader-reset"
+        <Button
+          variant="outline"
+          size="sm"
           type="button"
           onClick={handleReset}
           disabled={selectedFiles.length === 0}
         >
           초기화
-        </button>
+        </Button>
       </div>
 
       {selectedFiles.length > 0 ? (
@@ -151,10 +152,7 @@ function Uploader() {
           확인용으로 사용할 수 있습니다.
         </p>
       )}
-
-      {toastMessage ? (
-        <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
-      ) : null}
+      <Toaster />
     </section>
   );
 }

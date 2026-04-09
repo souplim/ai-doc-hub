@@ -27,15 +27,6 @@
   font-size: clamp(2rem, 4vw, 3rem);
 }
 
-.uploader-badge {
-  width: fit-content;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: var(--accent-bg);
-  color: var(--accent);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
 
 .uploader-dropzone {
   display: grid;
@@ -95,19 +86,6 @@
   color: var(--text-h);
 }
 
-.uploader-reset {
-  padding: 10px 14px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--text-h);
-  color: var(--bg);
-  cursor: pointer;
-}
-
-.uploader-reset:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
 
 .uploader-file-list {
   list-style: none;
@@ -144,9 +122,5 @@
   .uploader-file-item {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .uploader-reset {
-    width: 100%;
   }
 }

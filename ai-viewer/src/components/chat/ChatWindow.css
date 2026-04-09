@@ -51,36 +51,6 @@
   gap: 12px;
 }
 
-.chat-input {
-  flex: 1;
-  min-width: 0;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--bg) 88%, var(--social-bg));
-  color: var(--text-h);
-  font: inherit;
-}
-
-.chat-input:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-.chat-submit {
-  padding: 0 18px;
-  border: 0;
-  border-radius: 16px;
-  background: var(--text-h);
-  color: var(--bg);
-  font: inherit;
-  cursor: pointer;
-}
-
-.chat-submit:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
 
 @media (max-width: 640px) {
   .chat-container {

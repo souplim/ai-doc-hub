@@ -1,17 +1,27 @@
 import { useChat } from "@ai-sdk/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { DefaultChatTransport } from "ai";
 import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import Loading from "../loading/Loading";
 import MarkdownMessage from "./MarkdownMessage";
 import ChatStatusNotice from "./ChatStatusNotice";
 import "./ChatWindow.css";
+
+const chatSchema = z.object({
+  message: z.string().min(1),
+});
+
+type ChatFormValues = z.infer<typeof chatSchema>;
 
 export default function ChatWindow({
   documentContext,
 }: {
   documentContext?: string;
 }) {
-  const [input, setInput] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const scrollAnchorRef = useRef<HTMLDivElement | null>(null);
@@ -24,6 +34,11 @@ export default function ChatWindow({
     },
   });
 
+  const { register, handleSubmit, reset } = useForm<ChatFormValues>({
+    resolver: zodResolver(chatSchema),
+    defaultValues: { message: "" },
+  });
+
   useEffect(() => {
     scrollAnchorRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -31,22 +46,18 @@ export default function ChatWindow({
     });
   }, [messages, status]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const isBusy = status === "submitted" || status === "streaming";
 
-    if (!input.trim()) {
-      return;
-    }
-
+  const onSubmit = (data: ChatFormValues) => {
     sendMessage(
-      { text: input },
+      { text: data.message },
       {
         body: {
           documentContext,
         },
       },
     );
-    setInput("");
+    reset();
   };
 
   return (
@@ -68,8 +79,8 @@ export default function ChatWindow({
             description={errorMessage}
           />
         ) : null}
-        {status === "submitted" || status === "streaming" ? <Loading /> : null}
-        {(status === "submitted" || status === "streaming") && !error ? (
+        {isBusy ? <Loading /> : null}
+        {isBusy && !error ? (
           <ChatStatusNotice
             tone="warning"
             title="응답이 조금 늦어지고 있어요"
@@ -80,21 +91,15 @@ export default function ChatWindow({
         <div ref={scrollAnchorRef} />
       </div>
 
-      <form className="chat-form" onSubmit={handleSubmit}>
-        <input
-          className="chat-input"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          disabled={status === "submitted" || status === "streaming"}
+      <form className="chat-form" onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          {...register("message")}
+          disabled={isBusy}
           placeholder="문서에 대해 질문하세요..."
         />
-        <button
-          className="chat-submit"
-          type="submit"
-          disabled={status === "submitted" || status === "streaming"}
-        >
+        <Button type="submit" disabled={isBusy}>
           전송
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -1,3 +1,5 @@
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { cn } from "@/lib/utils";
 import "./ChatStatusNotice.css";
 
 type ChatStatusNoticeProps = {
@@ -14,14 +16,18 @@ function ChatStatusNotice({
   delayed = false,
 }: ChatStatusNoticeProps) {
   return (
-    <div
-      className={`chat-status-notice is-${tone}${delayed ? " is-delayed" : ""}`}
-      role="status"
+    <Alert
+      variant={tone === "error" ? "destructive" : "default"}
+      className={cn(
+        delayed && "is-delayed",
+        tone === "warning" &&
+          "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200",
+      )}
       aria-live="polite"
     >
-      <strong>{title}</strong>
-      <p>{description}</p>
-    </div>
+      <AlertTitle>{title}</AlertTitle>
+      <AlertDescription>{description}</AlertDescription>
+    </Alert>
   );
 }
 
