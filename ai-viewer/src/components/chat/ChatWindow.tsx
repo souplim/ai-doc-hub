@@ -17,6 +17,12 @@ const chatSchema = z.object({
 
 type ChatFormValues = z.infer<typeof chatSchema>;
 
+const SERVER_URL = (
+  import.meta.env.VITE_SERVER_URL?.trim() || "http://localhost:3000"
+).replace(/\/$/, "");
+
+const CHAT_API_URL = `${SERVER_URL}/api/chat`;
+
 export default function ChatWindow({
   documentContext,
 }: {
@@ -27,7 +33,7 @@ export default function ChatWindow({
   const scrollAnchorRef = useRef<HTMLDivElement | null>(null);
   const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({
-      api: "http://localhost:3000/api/chat",
+      api: CHAT_API_URL,
     }),
     onError: (err) => {
       setErrorMessage(err.message);

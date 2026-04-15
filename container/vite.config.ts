@@ -23,4 +23,10 @@ export default defineConfig({
   resolve: {
     dedupe: ["react", "react-dom"],
   },
+  server: {
+    port: 5000,
+  },
+  preview: {
+    port: 5000,
+  },
 });

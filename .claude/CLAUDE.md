@@ -49,3 +49,7 @@
 - Simplicity first.
 - Fix root causes, not symptoms.
 - Minimize scope and avoid regressions.
+
+## language
+
+- Always answer in Korean.
