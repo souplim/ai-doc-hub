@@ -8,33 +8,19 @@ type ThemeToggleProps = {
 };
 
 function ThemeToggle({ theme, onThemeChange }: ThemeToggleProps) {
+  const isDark = theme === "dark";
+
   return (
-    <div className="theme-toggle" role="group" aria-label="테마 선택">
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        className={`theme-toggle-button${theme === "light" ? " is-active" : ""}`}
-        onClick={() => onThemeChange("light")}
-        aria-pressed={theme === "light"}
-        aria-label="라이트 모드"
-      >
-        <Sun aria-hidden="true" />
-        <span className="sr-only">Light</span>
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        className={`theme-toggle-button${theme === "dark" ? " is-active" : ""}`}
-        onClick={() => onThemeChange("dark")}
-        aria-pressed={theme === "dark"}
-        aria-label="다크 모드"
-      >
-        <Moon aria-hidden="true" />
-        <span className="sr-only">Dark</span>
-      </Button>
-    </div>
+    <Button
+      type="button"
+      variant="ghost"
+      size="icon-sm"
+      className="theme-toggle-button"
+      onClick={() => onThemeChange(isDark ? "light" : "dark")}
+      aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+    >
+      {isDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+    </Button>
   );
 }
 

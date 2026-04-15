@@ -74,8 +74,8 @@ function AppShell() {
         </div>
         {/* toolbar actions */}
         <div className="container-toolbar-actions">
-          <ThemeToggle theme={theme} onThemeChange={setTheme} />
           <UserMenu />
+          <ThemeToggle theme={theme} onThemeChange={setTheme} />
         </div>
       </header>
       {/* main content */}
