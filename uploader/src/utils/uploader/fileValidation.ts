@@ -6,6 +6,7 @@ const ALLOWED_FILE_EXTENSIONS = new Set([
   ".gif",
   ".pdf",
   ".txt",
+  ".md",
   ".doc",
   ".docx",
 ]);

@@ -37,7 +37,7 @@ function Uploader() {
     const { validFiles, invalidFiles } = splitFilesByValidation(files);
 
     if (invalidFiles.length > 0) {
-      toast("JPG, PNG, WEBP, GIF, PDF, TXT, DOC, DOCX 파일만 업로드할 수 있어요.");
+      toast("JPG, PNG, WEBP, GIF, PDF, TXT, MD, DOC, DOCX 파일만 업로드할 수 있어요.");
     }
 
     updateSelectedFiles(validFiles);
