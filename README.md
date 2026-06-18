@@ -51,11 +51,38 @@ GOOGLE_GENERATION_AI_API_KEY=your_gemini_api_key
 
 ### 3. Installation & Execution
 
-각 서비스 폴더에서 의존성을 설치하고 실행합니다. (Container, Uploader, AI-Viewer, Server)
+> **중요:** Module Federation 구조상 Remote 앱(ai-viewer, uploader)은 반드시 `dev:remote`로 실행해야 합니다.
+> `npm run dev`(standalone)로 실행하면 Container가 `/assets/remoteEntry.js`를 찾지 못해 404 오류가 발생합니다.
 
+각 터미널에서 아래 순서대로 실행합니다.
+
+**터미널 1 — AI Viewer (Remote, port 5002)**
 ```bash
-# Example for Container
+cd ai-viewer
+npm install
+npm run dev:remote
+```
+
+**터미널 2 — Uploader (Remote, port 5001)**
+```bash
+cd uploader
+npm install
+npm run dev:remote
+```
+
+**터미널 3 — Container (Host, port 5000)**
+```bash
 cd container
 npm install
 npm run dev
 ```
+
+**터미널 4 — Server (Backend)**
+```bash
+cd server
+npm install
+npm run dev
+```
+
+> `dev:remote`는 내부적으로 `build:watch`와 `vite preview`를 함께 실행합니다.
+> Remote 앱이 완전히 빌드된 후 Container를 시작해야 정상 동작합니다.
