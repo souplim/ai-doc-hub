@@ -1,11 +1,12 @@
 import * as pdfjsLib from "pdfjs-dist";
 import workerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
-import {
-  dispatchUploaderFileUploaded,
-  type UploadedFileContent,
-} from "@ai-doc-hub/events/uploader";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
+
+export interface FileContent {
+  fileName: string;
+  content?: string;
+}
 
 const shouldReadFileAsText = (file: File) =>
   file.type.startsWith("text/") ||
@@ -16,7 +17,7 @@ const isPdf = (file: File) =>
   file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
 
 const readTextFile = (file: File) =>
-  new Promise<UploadedFileContent>((resolve) => {
+  new Promise<FileContent>((resolve) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const content =
@@ -29,7 +30,7 @@ const readTextFile = (file: File) =>
     reader.readAsText(file);
   });
 
-const readPdfFile = async (file: File): Promise<UploadedFileContent> => {
+const readPdfFile = async (file: File): Promise<FileContent> => {
   try {
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -50,10 +51,8 @@ const readPdfFile = async (file: File): Promise<UploadedFileContent> => {
   }
 };
 
-export const readFileContent = (file: File): Promise<UploadedFileContent> => {
+export const readFileContent = (file: File): Promise<FileContent> => {
   if (isPdf(file)) return readPdfFile(file);
   if (shouldReadFileAsText(file)) return readTextFile(file);
   return Promise.resolve({ fileName: file.name });
 };
-
-export { dispatchUploaderFileUploaded };

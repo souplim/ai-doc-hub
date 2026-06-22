@@ -41,17 +41,12 @@ const getFileKey = (file: File) =>
 
 const getFileExtension = (fileName: string) => {
   const extensionIndex = fileName.lastIndexOf(".");
-
-  if (extensionIndex < 0) {
-    return "";
-  }
-
+  if (extensionIndex < 0) return "";
   return fileName.slice(extensionIndex).toLowerCase();
 };
 
 const isAllowedFile = (file: File) => {
   const extension = getFileExtension(file.name);
-
   return (
     ALLOWED_FILE_EXTENSIONS.has(extension) ||
     ALLOWED_MIME_TYPES.has(file.type.toLowerCase())
@@ -67,11 +62,7 @@ export const mergeSelectedFiles = (
 
   incomingFiles.forEach((file) => {
     const fileKey = getFileKey(file);
-
-    if (existingFileKeys.has(fileKey)) {
-      return;
-    }
-
+    if (existingFileKeys.has(fileKey)) return;
     existingFileKeys.add(fileKey);
     mergedFiles.push(file);
   });
@@ -86,10 +77,9 @@ export const splitFilesByValidation = (files: File[]) => {
   files.forEach((file) => {
     if (isAllowedFile(file)) {
       validFiles.push(file);
-      return;
+    } else {
+      invalidFiles.push(file);
     }
-
-    invalidFiles.push(file);
   });
 
   return { validFiles, invalidFiles };
